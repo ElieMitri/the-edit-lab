@@ -16,7 +16,7 @@ import { CiLogout } from "react-icons/ci";
 import Link from "next/link";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
-export default function Home() {
+export default function Page() {
   const userData = auth.currentUser;
 
   const [user, setUser] = useState();
