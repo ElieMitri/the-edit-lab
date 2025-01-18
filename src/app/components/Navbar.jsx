@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Logo from "../../../public/TEL.png";
@@ -59,12 +59,13 @@ export default function Navbar() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 320,
-    //   bgcolor: "background.paper",
+    bgcolor: "#2f2f2f",
     borderRadius: "15px",
     padding: "0",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+    outline: "none",
   };
 
   function handleClose() {
@@ -162,19 +163,17 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }, []);
 
   function openSidebar() {
-    setOpenedSidebar(true)
-    document.body.style.overflow = 'hidden';
+    setOpenedSidebar(true);
+    document.body.style.overflow = "hidden";
   }
   function closeSidebar() {
-    setOpenedSidebar(false)
-    document.body.style.overflow = '';
+    setOpenedSidebar(false);
+    document.body.style.overflow = "";
   }
-
-
 
   return (
     <>
@@ -183,7 +182,7 @@ export default function Navbar() {
           <div className={styles.burgerLogo}>
             <h1 className={styles.burgerWrapper}>
               {openedSidebar ? (
-                <IoClose className={styles.burger} onClick={closeSidebar}/>
+                <IoClose className={styles.burger} onClick={closeSidebar} />
               ) : (
                 <GiHamburgerMenu
                   className={styles.burger}
@@ -192,18 +191,20 @@ export default function Navbar() {
               )}
             </h1>
             <figure className={styles.logoWrapper}>
-              <Image src={Logo} className={styles.logo} alt=""/>
+              <Image src={Logo} className={styles.logo} alt="" />
             </figure>
           </div>
           <div className={styles.navText}>
             {/* <button className={styles.button} onClick={handleOpen}>
               Lab Member <LuCrown className={styles.crown} />
             </button> */}
-            <div className={styles.firstLetter}>
-              {user.displayName[0]}
-            </div>
+            <div className={styles.firstLetter}>{user.displayName[0]}</div>
           </div>
-          {openedSidebar ? <Sidebar setOpenedSidebar={setOpenedSidebar}/> : <></>}
+          {openedSidebar ? (
+            <Sidebar setOpenedSidebar={setOpenedSidebar} />
+          ) : (
+            <></>
+          )}
         </nav>
       ) : (
         <nav className={styles.nav}>

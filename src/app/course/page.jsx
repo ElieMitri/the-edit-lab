@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 
 import Navbar from "../components/Navbar";
 import styles from "../styles/Course.module.css";
@@ -21,6 +20,7 @@ export default function Home() {
   const userData = auth.currentUser;
 
   const [user, setUser] = useState();
+  const [paid, setPaid] = useState(false);
 
   const [matchingUser, setMatchingUser] = useState(null); // This will store the matched user data
 
@@ -48,7 +48,10 @@ export default function Home() {
             // If a matching user is found
             const matchedUser = querySnapshot.docs[0].data(); // Get the first matching user
             setMatchingUser(matchedUser); // Store the matched user data
-            console.log("Matched User by Email:", matchedUser);
+            console.log(matchedUser);
+            if (matchedUser.subscriptionPlan === "Paid") {
+              setPaid(true);
+            }
           } else {
             console.log("No user found with this email.");
           }
@@ -62,16 +65,6 @@ export default function Home() {
 
     return () => unsubscribe(); // Cleanup the listener when the component unmounts
   }, []);
-
-  //   useEffect(() => {
-  //     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-  //       setUser(currentUser);
-  //       console.log(currentUser.displayName);
-  //       console.log(currentUser.email);
-  //       console.log(currentUser.uid);
-  //     });
-  //     return () => unsubscribe();
-  //   }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -114,74 +107,59 @@ export default function Home() {
     <>
       <div>
         <Navbar />
-        {/* {user && matchingUser ? (
-          <>
-            <div className={styles.accDetailsWrapper}>
-              <div className={styles.accDetails}>
-                <div className={styles.accDetail}>
-                  <h1 className={styles.accDetailText}>Email:</h1>
-                  <span className={styles.detail}>{user.email}</span>
-                </div>
-                <div className={styles.accDetail}>
-                  <h1 className={styles.accDetailText}>Name:</h1>
-                  <span className={styles.detail}>{user.displayName}</span>
-                </div>
-                <div className={styles.accDetail}>
-                  <h1 className={styles.accDetailText}>Subscription:</h1>
-                  <span className={styles.detail}>{matchingUser?.subscriptionPlan}</span>
-                </div>
+
+        {paid ? (
+          <div className={styles.videoWrapper}>
+            <div className={styles.video}>
+              <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+                <iframe
+                  src="https://player.vimeo.com/video/851580640?badge=0&autopause=0&player_id=0&app_id=58479"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  // title="Fortnite_20221029212356"
+                ></iframe>
               </div>
             </div>
-            <Link href="/">
-              <CiLogout className={styles.logoutBtn} onClick={signOut} />
-            </Link>
-          </>
-        ) : (
-          <></>
-        )} */}
-
-        <div className={styles.videoWrapper}>
-          <div className={styles.video}>
-            <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
-              <iframe
-                src="https://player.vimeo.com/video/851580640?badge=0&autopause=0&player_id=0&app_id=58479"
-                frameBorder="0"
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                }}
-                // title="Fortnite_20221029212356"
-              ></iframe>
+            <div className={styles.textWrapper}>
+              <h1 className={styles.videoTitle}>Editing</h1>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Repellendus totam earum voluptatum quas cum! Aut iusto, dolorum
+                omnis aliquam tenetur nobis neque! Magnam laborum animi fuga
+                aliquid repudiandae error pariatur? Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Repellendus totam earum voluptatum
+                quas cum! Aut iusto, dolorum omnis aliquam tenetur nobis neque!
+                Magnam laborum animi fuga aliquid repudiandae error pariatur?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Repellendus totam earum voluptatum quas cum! Aut iusto, dolorum
+                omnis aliquam tenetur nobis neque! Magnam laborum animi fuga
+                aliquid repudiandae error pariatur? Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Repellendus totam earum voluptatum
+                quas cum! Aut iusto, dolorum omnis aliquam tenetur nobis neque!
+                Magnam laborum animi fuga aliquid repudiandae error pariatur?
+              </p>
+              <div className={styles.buttonWrapper}>
+                <button className={styles.buttonContinue}>Mark Complete</button>
+                <button className={styles.buttonMark}>Continue</button>
+              </div>
             </div>
           </div>
-          <div className={styles.textWrapper}>
-            <h1 className={styles.videoTitle}>Editing</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Repellendus totam earum voluptatum quas cum! Aut iusto, dolorum
-              omnis aliquam tenetur nobis neque! Magnam laborum animi fuga
-              aliquid repudiandae error pariatur? Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Repellendus totam earum voluptatum
-              quas cum! Aut iusto, dolorum omnis aliquam tenetur nobis neque!
-              Magnam laborum animi fuga aliquid repudiandae error pariatur?
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Repellendus totam earum voluptatum quas cum! Aut iusto, dolorum
-              omnis aliquam tenetur nobis neque! Magnam laborum animi fuga
-              aliquid repudiandae error pariatur? Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Repellendus totam earum voluptatum
-              quas cum! Aut iusto, dolorum omnis aliquam tenetur nobis neque!
-              Magnam laborum animi fuga aliquid repudiandae error pariatur?
-            </p>
-            <div className={styles.buttonWrapper}>
-              <button className={styles.buttonContinue}>Mark Complete</button>
-              <button className={styles.buttonMark}>Continue</button>
+        ) : (
+          <div className={styles.videoWrapper}>
+          <div className={styles.video}>
+            <div style={{ padding: "56.25% 0 0 0", position: "relative", backgroundColor: "black" }}>
+              <div className={styles.playerText}></div>
             </div>
           </div>
         </div>
+        )}
       </div>
     </>
   );

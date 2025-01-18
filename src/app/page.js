@@ -9,6 +9,9 @@ import LandingPage from "./components/LandingPage";
 
 export default function Home() {
 
+  console.log("test test");
+  
+
   useEffect(() => {
     // Set up the listener for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (user) => {
